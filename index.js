@@ -188,6 +188,13 @@ Liftoff.prototype.buildEnvironment = function (opts) {
       basedir: configBase || cwd,
       paths: paths,
     });
+
+    console.log('DEBUG_SH009: Module PATH', [
+      this.moduleName,
+      configBase || cwd,
+      paths
+    ]);
+
     modulePackage = silentRequire(fileSearch('package.json', [modulePath]));
   } catch (e) {}
 
@@ -210,6 +217,11 @@ Liftoff.prototype.buildEnvironment = function (opts) {
       modulePackage = {};
     }
   }
+
+  console.log('DEBUG_SH008: Module path data =', [
+    modulePackagePath,
+    modulePackage.main,
+  ]);
 
   return {
     cwd: cwd,
@@ -249,6 +261,8 @@ Liftoff.prototype.prepare = function (opts, fn) {
   }
 
   process.title = this.processTitle;
+
+  console.log('DEBUG_SH008: buildEnvironment opts =', opts);
 
   var env = this.buildEnvironment(opts);
 
